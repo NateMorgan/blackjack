@@ -118,6 +118,7 @@ class Game{
 // Constants //
 const bjCardValArr = ['A','02','03','04','05','06','07','08','09','10','J','Q','K']
 const bjCardStyleArr = ['d','h','s','c']
+const chipArr = [1,5,25,100,500]
 const numDecks = 1
 
 // Variables (State) //
