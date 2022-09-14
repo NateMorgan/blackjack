@@ -91,13 +91,23 @@ class Game{
   }
 
   nextPlayer(){
-    game.turn += game.turn < (this.playersArr.length-1) ? 1 : (-this.playersArr.length)
+    this.turn += this.turn < (this.playersArr.length-1) ? 1 : (-(this.playersArr.length-1))
+    if (this.turn === 0){
+      this.dealerExecute()
+    }
   }
 
   logGame(){
     console.log(this.turn)
     console.log(this.playersArr)
     console.log(this.deck)
+  }
+
+  dealerExecute(){
+    console.log(this.playersArr)
+    while (this.playersArr[this.turn].handValue() < 17 && this.playersArr[0].handValue() !== 'BUST'){
+      this.dealPlayer()
+    }
   }
 }
 
@@ -142,12 +152,14 @@ function render(){
       newCardDiv.setAttribute("class", `card ${card}`)
       newPlayerDiv.appendChild(newCardDiv)
     }
-    handValEl = document.createElement('h1')
+    handValEl = document.createElement('h2')
     handValEl.textContent = `${player.handValue()}`
     newPlayerDiv.appendChild(handValEl)
 
     gameSpace.appendChild(newPlayerDiv)
   }
+  playerNodeList = document.querySelectorAll('h1')
+  playerNodeList[game.turn].style.color = 'yellow'
 }
 
 render()
