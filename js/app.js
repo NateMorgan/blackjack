@@ -92,7 +92,7 @@ class Game{
 }
 
 // Constants //
-const bjCardValArr = ['A','2','3','4','5','6','7','8','9','10','J','Q','K']
+const bjCardValArr = ['A','02','03','04','05','06','07','08','09','10','J','Q','K']
 const bjCardStyleArr = ['d','h','s','c']
 const numDecks = 1
 
@@ -100,7 +100,8 @@ const numDecks = 1
 let game = new Game(3,'standard')
 
 // Cached Element References // 
-
+const gameSpace = document.querySelector(`#game-space`)
+console.log(gameSpace)
 
 // Event Listeners //
 
@@ -114,3 +115,19 @@ game.dealPlayer()
 game.playersArr[1].handValue()
 game.logGame()
 
+function render(){
+  gameSpace.innerHTML = ''
+  for (let player of game.playersArr){
+    newPlayerDiv = document.createElement('div')
+    newPlayerDiv.setAttribute("class", "player-div")
+    newPlayerDiv.setAttribute("id", `${player.nickname}`)
+    for (let card of player.hand){
+      newCardDiv= document.createElement('div')
+      newCardDiv.setAttribute("class", `card ${card}`)
+      newPlayerDiv.appendChild(newCardDiv)
+    }
+    gameSpace.appendChild(newPlayerDiv)
+  }
+}
+
+render()
