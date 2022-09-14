@@ -1,7 +1,21 @@
 body{
   background-color: grey;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .player-div{
   display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card{
+  margin: 10px;
+}
+
+.player-info{
+  /* font-size: 10px; */
 }

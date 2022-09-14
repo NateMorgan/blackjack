@@ -108,6 +108,7 @@ class Game{
     while (this.playersArr[this.turn].handValue() < 17 && this.playersArr[0].handValue() !== 'BUST'){
       this.dealPlayer()
     }
+
   }
 }
 
@@ -149,16 +150,30 @@ function render(){
 
     for (let card of player.hand){
       newCardDiv= document.createElement('div')
-      newCardDiv.setAttribute("class", `card ${card}`)
+      newCardDiv.setAttribute("class", `card large ${card}`)
       newPlayerDiv.appendChild(newCardDiv)
     }
+
+    playerInfoDiv = document.createElement('div')
+    playerInfoDiv.setAttribute("class","player-info")
+
     handValEl = document.createElement('h2')
-    handValEl.textContent = `${player.handValue()}`
-    newPlayerDiv.appendChild(handValEl)
+    handValEl.textContent = `Total: ${player.handValue()}`
+    playerInfoDiv.appendChild(handValEl)
+
+    playerTokensEl = document.createElement('h2')
+    playerTokensEl.textContent = `Tokens:${player.tokens}`
+    playerInfoDiv.appendChild(playerTokensEl)
+
+    playerBetEl = document.createElement('h2')
+    playerBetEl.textContent = `Bet:${player.bet}`
+    playerInfoDiv.appendChild(playerBetEl)
+
+    newPlayerDiv.appendChild(playerInfoDiv)
 
     gameSpace.appendChild(newPlayerDiv)
   }
-  playerNodeList = document.querySelectorAll('h1')
+  playerNodeList = document.querySelectorAll(`.player-div`)
   playerNodeList[game.turn].style.color = 'yellow'
 }
 
