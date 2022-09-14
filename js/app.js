@@ -56,6 +56,9 @@ class Player{
     for (let i = 0; i < aceCount; i++){
       handVal += handVal < 11 ? 11 : 1
     }
+    if (handVal > 21){
+      handVal = 'BUST'
+    }
     return handVal
   }
 }
@@ -65,7 +68,7 @@ class Game{
     this.turn = 0
     this.playersArr = [new Player('Dealer')]
     for(let i = 0; i < numPlayers; i++){
-      this.playersArr.push(new Player(`Player${i+1}`))
+      this.playersArr.push(new Player(`Player ${i+1}`))
     }
     this.deck = gameMode = 'standard' ? new Deck(1,bjCardValArr,bjCardStyleArr) : '?'
     this.deck.shuffle(10)
@@ -82,6 +85,13 @@ class Game{
 
   dealPlayer(){
     this.playersArr[this.turn].hand.push(this.deck.deal())
+    if (this.playersArr[this.turn].handValue() === 'BUST'){
+      this.nextPlayer()
+    }
+  }
+
+  nextPlayer(){
+    game.turn += game.turn < (this.playersArr.length-1) ? 1 : (-this.playersArr.length)
   }
 
   logGame(){
@@ -101,18 +111,19 @@ let game = new Game(3,'standard')
 
 // Cached Element References // 
 const gameSpace = document.querySelector(`#game-space`)
-console.log(gameSpace)
+const btnHit = document.querySelector(`#hit-btn`)
+const btnStand = document.querySelector(`#stand-btn`)
+
+
 
 // Event Listeners //
+btnHit.addEventListener(`click`, hit)
+btnStand.addEventListener(`click`, stand)
 
 
 // Functions //
 
 game.dealStart()
-game.logGame()
-game.playersArr[1].handValue()
-game.dealPlayer()
-game.playersArr[1].handValue()
 game.logGame()
 
 function render(){
@@ -140,3 +151,13 @@ function render(){
 }
 
 render()
+
+function hit(){
+  game.dealPlayer()
+  render()
+}
+
+function stand(){
+  game.nextPlayer()
+  render()
+}
