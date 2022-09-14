@@ -47,16 +47,16 @@ class Player{
     for(let card of this.hand){
       if(card[1] === 'A'){
         aceCount += 1
-      } else if (['K','Q','J'].includes(card[1])){
+      } else if (['K','Q','J','1'].includes(card[1])){
         handVal += 10
       } else {
-        handVal += parseInt(card[1])
+        handVal += parseInt(card[2])
       }
     } 
     for (let i = 0; i < aceCount; i++){
       handVal += handVal < 11 ? 11 : 1
     }
-    console.log(handVal)
+    return handVal
   }
 }
 
@@ -126,6 +126,10 @@ function render(){
       newCardDiv.setAttribute("class", `card ${card}`)
       newPlayerDiv.appendChild(newCardDiv)
     }
+    handValDiv = document.createElement('h1')
+    handValDiv.textContent = `${player.handValue()}`
+    newPlayerDiv.appendChild(handValDiv)
+
     gameSpace.appendChild(newPlayerDiv)
   }
 }
