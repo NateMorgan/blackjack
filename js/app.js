@@ -121,14 +121,19 @@ function render(){
     newPlayerDiv = document.createElement('div')
     newPlayerDiv.setAttribute("class", "player-div")
     newPlayerDiv.setAttribute("id", `${player.nickname}`)
+
+    playerNameEl = document.createElement('h1')
+    playerNameEl.textContent = `${player.nickname}`
+    newPlayerDiv.appendChild(playerNameEl)
+
     for (let card of player.hand){
       newCardDiv= document.createElement('div')
       newCardDiv.setAttribute("class", `card ${card}`)
       newPlayerDiv.appendChild(newCardDiv)
     }
-    handValDiv = document.createElement('h1')
-    handValDiv.textContent = `${player.handValue()}`
-    newPlayerDiv.appendChild(handValDiv)
+    handValEl = document.createElement('h1')
+    handValEl.textContent = `${player.handValue()}`
+    newPlayerDiv.appendChild(handValEl)
 
     gameSpace.appendChild(newPlayerDiv)
   }

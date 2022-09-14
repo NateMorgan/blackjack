@@ -1,3 +1,7 @@
 body{
   background-color: grey;
 }
+
+.player-div{
+  display:flex;
+}
