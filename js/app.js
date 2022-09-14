@@ -37,8 +37,12 @@ class Player{
   }
 
   placeBet(amt){
-    this.tokens -= amt
-    this.bet += amt
+    if (amt < this.tokens){
+      this.tokens -= amt
+      this.bet += amt
+      return true
+    }
+    return false
   }
 
   handValue(){
@@ -97,18 +101,17 @@ class Game{
     }
   }
 
-  logGame(){
-    console.log(this.turn)
-    console.log(this.playersArr)
-    console.log(this.deck)
-  }
-
   dealerExecute(){
     console.log(this.playersArr)
     while (this.playersArr[this.turn].handValue() < 17 && this.playersArr[0].handValue() !== 'BUST'){
       this.dealPlayer()
     }
+  }
 
+  logGame(){
+    console.log(this.turn)
+    console.log(this.playersArr)
+    console.log(this.deck)
   }
 }
 
@@ -124,12 +127,14 @@ let game = new Game(3,'standard')
 const gameSpace = document.querySelector(`#game-space`)
 const btnHit = document.querySelector(`#hit-btn`)
 const btnStand = document.querySelector(`#stand-btn`)
+const btnDD = document.querySelector(`#dd-btn`)
 
 
 
 // Event Listeners //
 btnHit.addEventListener(`click`, hit)
 btnStand.addEventListener(`click`, stand)
+btnDD.addEventListener(`click`, double)
 
 
 // Functions //
@@ -187,4 +192,8 @@ function hit(){
 function stand(){
   game.nextPlayer()
   render()
+}
+
+function double(){
+  game.dealPlayer()
 }
